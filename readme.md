@@ -3,7 +3,35 @@
 [![Run on Repl.it](https://repl.it/badge/github/uwidcit/info2602ps)](https://repl.it/github/uwidcit/info2602ps)
 
 # Flask App Template
-You can use this app to get started with a basic flask application. If you are building out a project and need to deploy its recommeded to use the [flask mvc template](https://github.com/uwidcit/flaskmvc)
+You can use this app to get started with a basic flask application. If you are building out actual project and need to test and deploy it is recommeded to use the [flask mvc template](https://github.com/uwidcit/flaskmvc)
+
+# Running the project
+
+## Install dpendencies
+Install dependencies by running
+```bash
+pip install -r requirements.txt
+```
+
+## Initialize the database
+app.py contains the custom [command](https://flask.palletsprojects.com/en/2.0.x/cli/#custom-scripts) init-db which is executes as follows
+
+```bash
+flask init-db
+```
+
+## Adding Users
+You can execute the following custom command to crate some users
+
+```bash
+flask insert-users
+```
+
+## Start the server
+Finally you can run the server via the following custom command
+```bash
+flask run
+```
 
 # Creating & Linking your own github repository
 Git is used to perform source control. It helps teams manage code bases and merge together their contributions.

@@ -1,12 +1,11 @@
-import json
 from flask_cors import CORS
 from flask_login import LoginManager, current_user, login_user, login_required
-from flask import Flask, request, render_template, redirect, flash, url_for
+from flask import Flask, jsonify, request, render_template, redirect, flash, url_for
 from flask_jwt import JWT, jwt_required, current_identity
 from sqlalchemy.exc import IntegrityError
 from datetime import timedelta 
 
-from models import db, Logs #add application models
+from .models import db, User#add application models
 
 ''' Begin boilerplate code '''
 
@@ -46,13 +45,20 @@ app.app_context().push()
 # jwt = JWT(app, authenticate, identity)
 ''' End JWT Setup '''
 
+
+
 @app.route('/')
 def index():
-  return render_template('app.html')
+  users = User.query.all()
+  return render_template('app.html', users=users)
+
+
+@app.route('/api/users')
+def get_users():
+  users = User.query.all()
+  return jsonify([ user.toDict() for user in users])
 
 @app.route('/app')
 def client_app():
   return app.send_static_file('app.html')
 
-if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8080, debug=True)

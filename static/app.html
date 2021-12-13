@@ -14,22 +14,48 @@
 
     <nav class="green">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo center">Frontend App</a>
+        <a href="#!" class="brand-logo left">Frontend App</a>
+        <ul id="nav-mobile" class="right">
+          <li ><a href="/">Home</a></li>
+          <li class="active"><a href="/app">App</a></li>
+        </ul>
       </div>
     </nav>
 
-    <div id="content">
-        <h1>This view is rendered entierly on the client!</h1>
+    <div class="container">
+        <h1>This view Client Side Rendered</h1>
         <h2>It can be statically served</h2>
+        <table>
+            <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Username</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+            </tbody>
+          </table>
     </div>
-    <script src="server.js"></script>
 
     <script>
-      //Use the server global variable for ALL http request to your flask App
-      //Set the variable in server.js
-      console.log(server);
+      
+      function renderTable(users){
+        const tbody = document.querySelector('tbody');
+        let html = '';
+        for(let user of users){
+          html+=`<tr><td>${user.id}</td><td>${user.username}</td></tr>`
+        }
+        tbody.innerHTML = html;
+      }
 
-      //enter ALL javascript for you app here
+      async function fetchUsers(handleData){
+        const response = await fetch('/api/users');
+        const data = await response.json();
+        handleData(data);
+      }
+
+      fetchUsers(renderTable);
 
     </script>
   
